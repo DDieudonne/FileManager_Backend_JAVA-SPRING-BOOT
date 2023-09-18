@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.landodieudonne.api_crud_spring_boot.model.Folder;
 import com.landodieudonne.api_crud_spring_boot.repository.FolderRepository;
 
@@ -23,9 +24,16 @@ public class ServiceFunction {
 		return repository.findAll();
 	}
 
-	public Folder editFolderName(Folder fldrDB) {
-		Folder existingFolder = repository.findOne(fldrDB.getFolderId());
-		existingFolder.setName(fldrDB.getNewName());
+	public Folder editFolderName(String folderId, String newName) {
+		Folder existingFolder = repository.findOne(folderId);
+		existingFolder.FolderSetAll(existingFolder, null, false);
+		existingFolder.setName(newName);
+		return repository.save(existingFolder);
+	}
+
+	public Folder SetUpdateNbrFilesInFolder(String idFolder, Boolean add, Boolean editNumber) {
+		Folder existingFolder = repository.findOne(idFolder);
+		existingFolder.FolderSetAll(existingFolder, add, editNumber);
 		return repository.save(existingFolder);
 	}
 

@@ -29,7 +29,6 @@ public class FolderController {
 	@PostMapping("/addFolder")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Folder addFolder(@RequestBody Folder fldr) {
-		System.out.println("fldr getName " + fldr.getName());
 		return service.AddFolder(fldr);
 	}
 
@@ -40,9 +39,7 @@ public class FolderController {
 
 	@PutMapping("/editFolder")
 	public Folder editFolder(@RequestBody Map<String, Object> payload, Folder fldr) {
-		fldr.setFolderId(payload.get("id").toString());
-		fldr.setNewName(payload.get("newName").toString());
-		return service.editFolderName(fldr);
+		return service.editFolderName(payload.get("id").toString(),payload.get("newName").toString());
 	}
 
 	@DeleteMapping("deleteFolder/{id}")
